@@ -137,7 +137,10 @@
 				"timeout": {
 					"type": "number",
 					"description": "amount of time in seconds to timeout lambda",
-					"default": 6
+					"default": 6,
+					"multipleOf": 1,
+					"maximum": 900,
+					"minimum": 1
 				},
 				"logRetentionInDays": {
 					"type": "number",
