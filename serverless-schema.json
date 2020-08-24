@@ -27,7 +27,9 @@
         "^.*$": {
           "type": "object",
           "description": "Function definition",
-          "required": ["handler"],
+          "required": [
+            "handler"
+          ],
           "properties": {
             "handler": {
               "type": "string",
@@ -38,7 +40,7 @@
             },
             "environment": {
               "description": "Environment variables",
-              "patternProperties":  {
+              "patternProperties": {
                 "^.*$": {
                   "type": "string"
                 }
@@ -53,25 +55,23 @@
               "description": "Description of the AWS lambda function"
             },
             "runtime": {
-              "type": "string",
-              "default": "${self:provider.runtime}"
+              "$ref": "#/definitions/runtime"
             },
             "memorySize": {
-              "type": "integer",
-              "description": "AWS Lambda max memory, in MB",
-              "default": 1024
+              "$ref": "#/definitions/memorySize"
             },
             "timeout": {
-              "type": "integer",
-              "description": "AWS Lambda timeout, in seconcs",
-              "default": 6
+              "$ref": "#/definitions/timeout"
             },
             "reservedConcurrency": {
               "type": "integer",
               "description": "AWS Lambda reserved concurrency limit for this function. By default, AWS account concurrency limit"
             },
             "onError": {
-              "type": ["string","object"],
+              "type": [
+                "string",
+                "object"
+              ],
               "description": "Dead letter queue where messages are sent if the function fails. Currently only supports SNS. https://serverless.com/framework/docs/providers/aws/guide/functions#dead-letter-queue-dlq",
               "pattern": "^arn:aws:sns:.+|\\$\\{.+\\}$",
               "properties": {
@@ -114,10 +114,14 @@
                         }
                       }
                     ]
-                  },"cognitoUserPool": {
+                  },
+                  "cognitoUserPool": {
                     "type": "object",
                     "description": "AWS Cognito UserPool trigger",
-                    "required": ["pool", "trigger"],
+                    "required": [
+                      "pool",
+                      "trigger"
+                    ],
                     "properties": {
                       "pool": {
                         "type": "string",
@@ -195,8 +199,12 @@
           ],
           "default": "aws"
         },
-        "runtime": { "$ref": "#/definitions/runtime" },
-        "memorySize": { "$ref": "#/definitions/memorySize" },
+        "runtime": {
+          "$ref": "#/definitions/runtime"
+        },
+        "memorySize": {
+          "$ref": "#/definitions/memorySize"
+        },
         "stackName": {
           "type": "string",
           "description": "custom name for the CloudFormation stack"
@@ -210,12 +218,7 @@
           "description": "default profile for this service"
         },
         "timeout": {
-          "type": "number",
-          "description": "amount of time in seconds to timeout lambda",
-          "default": 6,
-          "multipleOf": 1,
-          "maximum": 900,
-          "minimum": 1
+          "$ref": "#/definitions/timeout"
         },
         "logRetentionInDays": {
           "type": "number",
@@ -338,55 +341,18 @@
     "memorySize": {
       "type": "number",
       "description": "Default amount of memory to allocate per function",
-      "enum": [
-        128,
-        192,
-        256,
-        320,
-        384,
-        448,
-        512,
-        576,
-        640,
-        704,
-        768,
-        832,
-        896,
-        960,
-        1024,
-        1088,
-        1152,
-        1216,
-        1280,
-        1344,
-        1408,
-        1472,
-        1536,
-        1600,
-        1664,
-        1728,
-        1792,
-        1856,
-        1920,
-        1984,
-        2048,
-        2112,
-        2176,
-        2240,
-        2304,
-        2368,
-        2432,
-        2496,
-        2560,
-        2624,
-        2688,
-        2752,
-        2816,
-        2880,
-        2944,
-        3008
-      ],
+      "multipleOf": 64,
+      "maximum": 3008,
+      "minimum": 128,
       "default": 128
+    },
+    "timeout": {
+      "type": "number",
+      "description": "Amount of time in seconds to timeout lambda",
+      "default": 3,
+      "multipleOf": 1,
+      "maximum": 900,
+      "minimum": 1
     }
   }
 }
