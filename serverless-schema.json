@@ -317,6 +317,7 @@
       "type": "string",
       "description": "AWS Lambda runtime",
       "enum": [
+        "nodejs14.x",
         "nodejs12.x",
         "nodejs10.x",
         "nodejs8.10",
@@ -325,6 +326,7 @@
         "python3.7",
         "python3.6",
         "python2.7",
+        "ruby2.7",
         "ruby2.5",
         "java11",
         "java8.al2",
